@@ -2,7 +2,7 @@
 
 Site de présentation réalisé pour candidater au stage **Développement web, IA et gouvernance numérique** d'Alpha to Omega (Toulouse). Il tient lieu de CV et de lettre de motivation, comme demandé dans le document de candidature.
 
-- Site en ligne : à compléter après le déploiement (adresse `*.pages.dev` de Cloudflare Pages)
+- Site en ligne : https://leo-arnaud-a2o.pages.dev
 - Dépôt : https://github.com/leoarnaud-rodez/a2o-candidature
 
 ## Contenu du site
@@ -40,6 +40,7 @@ public/                     tout ce que Cloudflare Pages publie
   _headers                  en-têtes HTTP et CSP
   _redirects                raccourci /cv vers le PDF
   robots.txt
+  sitemap.xml
 ```
 
 ## Voir le site en local

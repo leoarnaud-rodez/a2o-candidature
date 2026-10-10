@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://leo-arnaud-a2o.pages.dev/sitemap.xml
