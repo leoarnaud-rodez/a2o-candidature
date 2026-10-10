@@ -21,7 +21,7 @@ Site de présentation réalisé pour candidater au stage **Développement web, I
 
 - **HTML et CSS, sans framework ni étape de construction.** L'offre mentionne Astro, que je ne connais pas : j'ai gardé des langages que je connais pour garder la maîtrise du projet.
 - **Un seul fichier JavaScript** (`public/assets/js/main.js`), écrit avec l'aide de Claude : thème clair ou sombre, menu sur téléphone et animations légères de l'accueil (particules en canvas, forme liquide en SVG). Le site reste lisible sans lui.
-- **Animations** : discrètes, mises en pause hors écran et dans un onglet masqué, et figées si le visiteur a demandé moins d'animations dans son système.
+- **Animations** : discrètes, mises en pause hors écran et dans un onglet masqué, et adoucies si le visiteur a limité les animations dans son navigateur ou son système (particules trois fois plus lentes et moins nombreuses, sans réaction à la souris, forme liquide trois fois plus lente).
 - **Aucun traceur, aucun cookie, aucun appel à un service tiers.** La police (Plus Jakarta Sans, licence SIL OFL 1.1) est hébergée dans le dépôt, sans Google Fonts. Il n'y a donc pas de bandeau de consentement.
 - **Sécurité** : en-têtes HTTP et politique de sécurité du contenu (CSP) stricte, définis dans `public/_headers`. Cette politique interdit les scripts et styles écrits dans les pages : tout est dans les fichiers `.css` et `.js`.
 - **Accessibilité** : lien d'évitement, navigation au clavier, contrastes vérifiés dans les deux thèmes, un seul `h1` par page, texte de remplacement sur l'image.
