@@ -6,7 +6,10 @@
    Le site fonctionne sans lui : les pages restent lisibles, en thème clair, sans animation. */
 (function () {
   var root = document.documentElement;
-  var reduceMotion = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  // Si le visiteur a limité les animations (navigateur ou système), on garde une version très douce,
+  // sans mouvement brusque, plutôt que de tout figer.
+  var soft = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  var calm = soft ? 0.3 : 1;
 
   // Thème appliqué tout de suite (le fichier est chargé dans <head>) pour éviter un flash.
   try {
@@ -37,15 +40,15 @@
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var count = Math.max(14, Math.min(44, Math.round((w * h) / 24000)));
+      var count = Math.max(12, Math.min(44, Math.round((w * h) / (soft ? 38000 : 24000))));
       particles = [];
       for (var i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * w,
           y: Math.random() * h,
           r: 1 + Math.random() * 1.8,
-          vx: (Math.random() - 0.5) * 0.22,
-          vy: (Math.random() - 0.5) * 0.22,
+          vx: (Math.random() - 0.5) * 0.22 * calm,
+          vy: (Math.random() - 0.5) * 0.22 * calm,
           a: 0.25 + Math.random() * 0.35
         });
       }
@@ -59,7 +62,7 @@
         if (move) {
           // léger recul quand le pointeur passe à proximité
           dx = p.x - pointer.x; dy = p.y - pointer.y; d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 110 && d > 0.1) { p.x += (dx / d) * 0.6; p.y += (dy / d) * 0.6; }
+          if (!soft && d < 110 && d > 0.1) { p.x += (dx / d) * 0.6; p.y += (dy / d) * 0.6; }
           p.x += p.vx; p.y += p.vy;
           if (p.x < -10) p.x = w + 10; else if (p.x > w + 10) p.x = -10;
           if (p.y < -10) p.y = h + 10; else if (p.y > h + 10) p.y = -10;
@@ -88,14 +91,12 @@
       draw(true);
       window.requestAnimationFrame(loop);
     }
-    function start() { if (!running && visible && !document.hidden && !reduceMotion) { running = true; window.requestAnimationFrame(loop); } }
+    function start() { if (!running && visible && !document.hidden) { running = true; window.requestAnimationFrame(loop); } }
     function stop() { running = false; }
 
     readColor(); resize(); draw(false);
     window.addEventListener("resize", function () { resize(); draw(false); });
     window.addEventListener("themechange", function () { readColor(); if (!running) draw(false); });
-
-    if (reduceMotion) return; // image fixe, aucune animation
 
     hero.addEventListener("pointermove", function (e) {
       var r = hero.getBoundingClientRect();
@@ -112,12 +113,14 @@
     start();
   }
 
-  /* ---------- Forme liquide : l'animation SVG est faite en balisage, on la fige si besoin ---------- */
+  /* ---------- Forme liquide : l'animation SVG est faite en balisage, on la ralentit si besoin ---------- */
   function initBlob() {
-    if (!reduceMotion) return;
-    var svgs = document.querySelectorAll("svg.blob");
-    for (var i = 0; i < svgs.length; i++) {
-      if (svgs[i].pauseAnimations) svgs[i].pauseAnimations();
+    if (!soft) return;
+    // version douce : la forme se déforme trois fois plus lentement
+    var anims = document.querySelectorAll("svg.blob animate");
+    for (var i = 0; i < anims.length; i++) {
+      var d = parseFloat(anims[i].getAttribute("dur"));
+      if (d) anims[i].setAttribute("dur", (d * 3) + "s");
     }
   }
 
