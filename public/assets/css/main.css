@@ -85,8 +85,16 @@ ul{margin:0;padding:0;list-style:none}
 .hero h1{font-size:clamp(2rem,4vw,3.1rem);line-height:1.1;margin-bottom:20px}
 .hero__lead{font-size:1.1875rem;color:var(--muted);max-width:40ch;margin-bottom:32px}
 .hero__cta{display:flex;flex-wrap:wrap;gap:12px}
-.portrait{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface);aspect-ratio:4/5;max-height:520px;justify-self:end;width:100%;max-width:400px}
-.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+/* Animations d'accueil : particules (canvas) et forme liquide (SVG). Décoratives, masquées aux lecteurs d'écran. */
+.hero{position:relative;overflow:hidden}
+.hero__canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero__grid{position:relative}
+.hero__visual{justify-self:end;width:100%;max-width:420px;aspect-ratio:1/1}
+.blob{width:100%;height:100%;display:block;overflow:visible}
+.blob__stop--a{stop-color:var(--accent);stop-opacity:.9}
+.blob__stop--b{stop-color:var(--accent);stop-opacity:.28}
+.blob__shape--front{fill:url(#blob-grad)}
+.blob__shape--back{fill:var(--accent);fill-opacity:.12}
 
 /* ---------- Sections génériques ---------- */
 .section{padding-block:72px}
@@ -198,7 +206,7 @@ ul{margin:0;padding:0;list-style:none}
   .nav__tools{padding-top:8px}
   .hero{padding-block:32px 56px}
   .hero__grid{grid-template-columns:1fr;gap:36px}
-  .portrait{justify-self:start;max-width:280px;aspect-ratio:1/1}
+  .hero__visual{justify-self:center;max-width:240px}
   .section{padding-block:56px}
   .facts{grid-template-columns:1fr;row-gap:22px}
   .bento{grid-template-columns:1fr}

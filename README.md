@@ -19,8 +19,9 @@ Site de présentation réalisé pour candidater au stage **Développement web, I
 
 ## Choix techniques
 
-- **HTML, CSS et un seul fichier JavaScript**, sans framework ni étape de construction. L'offre mentionne Astro : je ne l'ai pas utilisé, car je ne voulais pas livrer un outil que je ne sais pas expliquer. Chaque fichier se lit en quelques minutes.
-- **JavaScript** (`public/assets/js/main.js`) : mémorisation du thème clair ou sombre et menu sur téléphone. Le site reste lisible sans lui.
+- **HTML et CSS, sans framework ni étape de construction.** L'offre mentionne Astro, que je ne connais pas : j'ai gardé des langages que je connais pour garder la maîtrise du projet.
+- **Un seul fichier JavaScript** (`public/assets/js/main.js`), écrit avec l'aide de Claude : thème clair ou sombre, menu sur téléphone et animations légères de l'accueil (particules en canvas, forme liquide en SVG). Le site reste lisible sans lui.
+- **Animations** : discrètes, mises en pause hors écran et dans un onglet masqué, et figées si le visiteur a demandé moins d'animations dans son système.
 - **Aucun traceur, aucun cookie, aucun appel à un service tiers.** La police (Plus Jakarta Sans, licence SIL OFL 1.1) est hébergée dans le dépôt, sans Google Fonts. Il n'y a donc pas de bandeau de consentement.
 - **Sécurité** : en-têtes HTTP et politique de sécurité du contenu (CSP) stricte, définis dans `public/_headers`. Cette politique interdit les scripts et styles écrits dans les pages : tout est dans les fichiers `.css` et `.js`.
 - **Accessibilité** : lien d'évitement, navigation au clavier, contrastes vérifiés dans les deux thèmes, un seul `h1` par page, texte de remplacement sur l'image.
@@ -34,7 +35,7 @@ public/                     tout ce que Cloudflare Pages publie
   assets/css/main.css       la feuille de style unique
   assets/js/main.js         le seul script
   assets/fonts/             la police
-  assets/img/               la photo et l'icône
+  assets/img/               l'icône
   docs/CV-Leo-Arnaud.pdf    le CV public (sans numéro de téléphone)
   _headers                  en-têtes HTTP et CSP
   _redirects                raccourci /cv vers le PDF
@@ -60,7 +61,7 @@ Puis ouvrir http://localhost:8080. Les liens internes commencent par `/` : il fa
 
 ## Vérifications effectuées avant la mise en ligne
 
-- Affichage contrôlé en 5 largeurs d'écran (de 320 à 1440 px), en thème clair et sombre.
+- Affichage contrôlé en 5 largeurs d'écran (de 320 à 1440 px), en thème clair et sombre, avec et sans « réduire les animations ».
 - Aucun débordement horizontal, aucune erreur dans la console du navigateur.
 - Tous les liens internes testés, page 404 vérifiée, en-têtes de sécurité présents.
 - Audit d'accessibilité automatique (axe-core) sans erreur sur toutes les pages, dans les deux thèmes.
